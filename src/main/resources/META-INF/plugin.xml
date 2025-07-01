@@ -1,0 +1,64 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.dlsc.fxtoolkit</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>FXToolkit</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="test@yourcompany.com" url="https://dlsc.com/">DLSC</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+        <h3>FXToolkit: Your Essential Toolkit for JavaFX Development</h3>
+        <p>
+            FXToolkit is a powerful enhancement suite designed to bridge the gap between code and visual design in your JavaFX projects. It brings a WYSIWYG-like experience directly into the IntelliJ IDEA editor.
+        </p>
+
+        <h4>Key Features (Currently Focused on CSS Enhancement):</h4>
+        <ul>
+            <li>
+                <strong>Live Gutter Previews:</strong> Instantly visualize colors, gradients, and even complex SVG path variables right beside your line numbers. No need to run your application to see the result.
+            </li>
+            <li>
+                <strong>Interactive Popups:</strong> Click any gutter icon to open a powerful preview panel.
+                <ul>
+                    <li><strong>Color Inspector:</strong> View large swatches and copy color codes in multiple formats.</li>
+                    <li><strong>Gradient Preview:</strong> Clearly see how your linear or radial gradients will appear.</li>
+                    <li><strong>SVG Editor:</strong> Not just a preview! Interactively resize your SVG icons (with aspect ratio locking) and apply the dimensions (<code>-fx-pref-width</code>/<code>-height</code>) back to your CSS with a single click.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Intelligent Code Completion:</strong> Get smart suggestions for your CSS variables, complete with corresponding preview icons to guide your choice. For SVG variables, the completion even shows the path's aspect ratio!
+            </li>
+        </ul>
+
+        <p>
+            <em><b>Future Vision:</b> While currently revolutionizing your CSS workflow, FXToolkit aims to grow into an indispensable companion for all aspects of JavaFX development, including FXML editing and beyond.</em>
+        </p>
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+    <depends>com.intellij.css</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+
+    <!-- In plugin.xml -->
+    <extensions defaultExtensionNs="com.intellij">
+        <backgroundPostStartupActivity implementation="com.dlsc.fxtoolkit.FxCssStartupActivity"/>
+        <completion.contributor language="CSS" implementationClass="com.dlsc.fxtoolkit.FxCssCompletionContributor"/>
+        <psi.referenceContributor language="CSS" implementation="com.dlsc.fxtoolkit.FxCssReferenceContributor"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij.codeInsight">
+        <lineMarkerProvider implementationClass="com.dlsc.fxtoolkit.FxCssLineMarkerProvider" language="CSS"/>
+    </extensions>
+</idea-plugin>
